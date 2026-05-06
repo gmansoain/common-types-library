@@ -1,0 +1,100 @@
+#%RAML 1.0 Library
+
+usage: Financial, currency, and payment-related types.
+
+types:
+  CurrencyCode:
+    type: string
+    pattern: "^[A-Z]{3}$"
+    description: |
+      ISO 4217 currency code. Three uppercase letters.
+    examples:
+      dollar: "USD"
+      euro: "EUR"
+      pound: "GBP"
+      yen: "JPY"
+
+  MonetaryAmount:
+    type: string
+    pattern: "^-?[0-9]+(\\.[0-9]{1,2})?$"
+    description: |
+      Monetary amount with up to 2 decimal places.
+      Allows negative values for refunds/credits.
+      No thousand separators, no currency symbol.
+    examples:
+      positive: "1234.56"
+      integer: "100"
+      negative: "-99.00"
+      cents: "0.99"
+
+  MonetaryAmountStrict:
+    type: string
+    pattern: "^-?[1-9]\\d*\\.\\d{2}$|^-?0\\.\\d{2}$"
+    description: |
+      Strict monetary amount: always exactly 2 decimal places, no leading zeros
+      (except for values less than 1).
+    examples:
+      standard: "1234.56"
+      small: "0.99"
+      negative: "-50.00"
+
+  MonetaryAmountCrypto:
+    type: string
+    pattern: "^-?[0-9]+(\\.[0-9]{1,18})?$"
+    description: |
+      Monetary amount for cryptocurrency (up to 18 decimal places for Wei precision).
+    examples:
+      bitcoin: "0.00012345"
+      ethereum: "1.234567890123456789"
+
+  CreditCardMasked:
+    type: string
+    pattern: "^\\*{4}-\\*{4}-\\*{4}-\\d{4}$"
+    description: |
+      PCI-DSS compliant masked card number.
+      Shows only the last 4 digits, all others are asterisks.
+    example: "****-****-****-4242"
+
+  CreditCardBIN:
+    type: string
+    pattern: "^\\d{6,8}$"
+    description: |
+      Bank Identification Number (first 6-8 digits of a card).
+      Used for routing and identifying the issuing bank.
+    examples:
+      six_digit: "424242"
+      eight_digit: "42424242"
+
+  IBAN:
+    type: string
+    pattern: "^[A-Z]{2}\\d{2}[A-Z0-9]{4}[A-Z0-9]{7,27}$"
+    description: |
+      International Bank Account Number (ISO 13616).
+      Format: 2 country letters + 2 check digits + 4 bank code + 7-27 account chars.
+      Total length varies by country (max 34 characters).
+    examples:
+      germany: "DE89370400440532013000"
+      uk: "GB29NWBK60161331926819"
+      spain: "ES9121000418450200051332"
+
+  BIC:
+    type: string
+    pattern: "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$"
+    description: |
+      SWIFT/BIC code (ISO 9362).
+      Format: 4 bank code + 2 country + 2 location + optional 3 branch.
+      8 or 11 characters total.
+    examples:
+      eight_char: "NWBKGB2L"
+      eleven_char: "DEUTDEFF500"
+
+  TaxId:
+    type: string
+    pattern: "^[A-Z]{2}[A-Z0-9]{5,20}$"
+    description: |
+      Generic tax identification number.
+      Country prefix (2 uppercase letters) followed by alphanumeric identifier.
+      Specific formats vary by country.
+    examples:
+      eu_vat: "DE123456789"
+      uk_vat: "GB123456789"

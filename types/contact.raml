@@ -1,0 +1,61 @@
+#%RAML 1.0 Library
+
+usage: Contact and personal information types.
+
+types:
+  Email:
+    type: string
+    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    maxLength: 254
+    description: |
+      Email address (simplified validation per RFC 5321 length limit).
+      Validates general structure but does not cover all edge cases of RFC 5322.
+      For production, combine with a verification email flow.
+    examples:
+      simple: "user@example.com"
+      with_dots: "first.last@company.co.uk"
+      with_plus: "user+tag@gmail.com"
+
+  PhoneE164:
+    type: string
+    pattern: "^\\+[1-9]\\d{6,14}$"
+    description: |
+      International phone number in E.164 format.
+      Starts with +, followed by country code and subscriber number.
+      Total 7-15 digits (not counting the +).
+    examples:
+      us: "+14155552671"
+      uk: "+442071234567"
+      short: "+3912345678"
+
+  PhoneNANP:
+    type: string
+    pattern: "^\\+1[2-9]\\d{2}[2-9]\\d{6}$"
+    description: |
+      North American phone number (US, Canada) in E.164.
+      Validates area code and exchange rules (no 0 or 1 as first digit).
+    example: "+12025551234"
+
+  Username:
+    type: string
+    pattern: "^[a-zA-Z][a-zA-Z0-9._-]{2,29}$"
+    description: |
+      Login username. Starts with a letter, 3-30 total characters.
+      Allows letters, digits, dots, underscores, and hyphens.
+    examples:
+      simple: "gmarcos"
+      with_numbers: "user123"
+      with_separators: "gonzalo.marcos_91"
+
+  PersonNameASCII:
+    type: string
+    pattern: "^[a-zA-Z][a-zA-Z\\s'.,-]{0,99}$"
+    minLength: 1
+    maxLength: 100
+    description: |
+      ASCII display name for a person. Starts with a letter.
+      Allows letters, spaces, apostrophes, dots, commas, hyphens.
+    examples:
+      simple: "Gonzalo Marcos"
+      hyphenated: "Mary-Jane O'Brien"
+      with_suffix: "James Smith, Jr."

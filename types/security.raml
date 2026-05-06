@@ -1,0 +1,98 @@
+#%RAML 1.0 Library
+
+usage: Security, authentication, and authorization types.
+
+types:
+  BearerToken:
+    type: string
+    pattern: "^Bearer [A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+    description: |
+      Bearer token in JWT format (Authorization header value).
+      Three Base64URL-encoded segments separated by dots, prefixed with "Bearer ".
+    example: "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyMSJ9.dGhpcyBpcyBhIHNpZ25hdHVyZQ"
+
+  JWTStructure:
+    type: string
+    pattern: "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+    description: |
+      JWT token structure (without Bearer prefix).
+      Three Base64URL-encoded segments: header.payload.signature.
+    example: "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyMSJ9.dGhpcyBpcyBhIHNpZ25hdHVyZQ"
+
+  ApiKey:
+    type: string
+    pattern: "^[a-z]{2,10}_(live|test|sandbox)_[A-Za-z0-9]{20,64}$"
+    description: |
+      Prefixed API key with environment indicator.
+      Format: prefix_environment_secret.
+    examples:
+      live: "sk_live_A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6"
+      test: "pk_test_Xk9mN2pQ4rS6tU8wY0zA1bC2dE3fG4hI"
+      sandbox: "ak_sandbox_R7s8T9u0V1w2X3y4Z5a6B7c8D9e0F1g2"
+
+  ApiKeySimple:
+    type: string
+    pattern: "^[A-Za-z0-9]{32,128}$"
+    description: |
+      Simple API key (no prefix structure). Alphanumeric, 32-128 chars.
+    example: "a1B2c3D4e5F6g7H8i9J0k1L2m3N4o5P6"
+
+  ClientId:
+    type: string
+    pattern: "^[0-9a-f]{32}$"
+    description: |
+      OAuth2 client identifier (32 lowercase hexadecimal characters).
+      Standard format for Anypoint Platform client applications.
+    example: "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+
+  ClientSecret:
+    type: string
+    pattern: "^[A-Za-z0-9]{32,64}$"
+    description: |
+      OAuth2 client secret. Alphanumeric, 32-64 characters.
+      WARNING: Never log or expose in responses.
+    example: "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6"
+
+  Base64:
+    type: string
+    pattern: "^[A-Za-z0-9+/]+=*$"
+    minLength: 4
+    description: |
+      Standard Base64-encoded string (RFC 4648).
+      Allows padding characters (=).
+    examples:
+      short: "SGVsbG8="
+      longer: "SGVsbG8gV29ybGQh"
+
+  Base64URL:
+    type: string
+    pattern: "^[A-Za-z0-9_-]+$"
+    minLength: 1
+    description: |
+      Base64URL-encoded string (RFC 4648 section 5).
+      URL-safe variant: uses - instead of + and _ instead of /.
+      No padding characters.
+    example: "SGVsbG8gV29ybGQh"
+
+  SHA256Hash:
+    type: string
+    pattern: "^[0-9a-f]{64}$"
+    description: |
+      SHA-256 hash digest (lowercase hex, 64 characters).
+    example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+  MD5Hash:
+    type: string
+    pattern: "^[0-9a-f]{32}$"
+    description: |
+      MD5 hash digest (lowercase hex, 32 characters).
+      Note: MD5 is cryptographically broken - use only for checksums, never for security.
+    example: "d41d8cd98f00b204e9800998ecf8427e"
+
+  BasicAuthHeader:
+    type: string
+    pattern: "^Basic [A-Za-z0-9+/]+=*$"
+    description: |
+      HTTP Basic Authentication header value.
+      Format: "Basic " followed by Base64-encoded "username:password".
+    example: "Basic dXNlcjpwYXNzd29yZA=="

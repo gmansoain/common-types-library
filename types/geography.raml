@@ -1,0 +1,224 @@
+#%RAML 1.0 Library
+
+usage: Geographic, locale, and address-related types.
+
+types:
+  CountryCodeAlpha2:
+    type: string
+    pattern: "^[A-Z]{2}$"
+    description: |
+      ISO 3166-1 alpha-2 country code (uppercase).
+      Two letters representing a country (e.g., US, GB, IT, AR).
+    examples:
+      usa: "US"
+      italy: "IT"
+      uk: "GB"
+
+  CountryCodeAlpha3:
+    type: string
+    pattern: "^[A-Z]{3}$"
+    description: |
+      ISO 3166-1 alpha-3 country code (uppercase).
+      Three letters representing a country (e.g., USA, GBR, ITA, ARG).
+    examples:
+      usa: "USA"
+      italy: "ITA"
+      argentina: "ARG"
+
+  CountryCodeNumeric:
+    type: string
+    pattern: "^\\d{3}$"
+    description: |
+      ISO 3166-1 numeric country code.
+      Three-digit code (e.g., 840 for USA, 380 for Italy).
+    examples:
+      usa: "840"
+      italy: "380"
+
+  LanguageCode:
+    type: string
+    pattern: "^[a-z]{2}$"
+    description: |
+      ISO 639-1 two-letter language code (lowercase).
+    examples:
+      english: "en"
+      spanish: "es"
+      italian: "it"
+
+  LanguageCode3:
+    type: string
+    pattern: "^[a-z]{3}$"
+    description: |
+      ISO 639-2/3 three-letter language code (lowercase).
+    examples:
+      english: "eng"
+      spanish: "spa"
+      italian: "ita"
+
+  Locale:
+    type: string
+    pattern: "^[a-z]{2}(-[A-Z]{2})?$"
+    description: |
+      BCP 47 language tag: language with optional region.
+      Format: ll or ll-RR (language-REGION).
+    examples:
+      language_only: "en"
+      with_region: "en-US"
+      italian: "it-IT"
+      spanish_argentina: "es-AR"
+
+  LocaleExtended:
+    type: string
+    pattern: "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?(-([A-Za-z]{5,8}|\\d{3}))*$"
+    description: |
+      Extended BCP 47 language tag with optional script and variants.
+      Format: language[-Script][-REGION][-variant].
+    examples:
+      simple: "en-US"
+      with_script: "zh-Hans-CN"
+      serbian_latin: "sr-Latn-RS"
+
+  Latitude:
+    type: string
+    pattern: "^-?(([0-8]?\\d)(\\.\\d{1,8})?|90(\\.0{1,8})?)$"
+    description: |
+      Geographic latitude: -90.0 to 90.0.
+      Up to 8 decimal places (~1mm precision).
+    examples:
+      nyc: "40.71280000"
+      south: "-33.86880000"
+      equator: "0.0"
+
+  Longitude:
+    type: string
+    pattern: "^-?((1[0-7]\\d|0?\\d{1,2})(\\.\\d{1,8})?|180(\\.0{1,8})?)$"
+    description: |
+      Geographic longitude: -180.0 to 180.0.
+      Up to 8 decimal places (~1mm precision).
+    examples:
+      nyc: "-74.00600000"
+      east: "151.20930000"
+      prime_meridian: "0.0"
+
+  LatLong:
+    type: string
+    pattern: "^-?(([0-8]?\\d)(\\.\\d{1,8})?|90(\\.0{1,8})?),-?((1[0-7]\\d|0?\\d{1,2})(\\.\\d{1,8})?|180(\\.0{1,8})?)$"
+    description: |
+      Comma-separated latitude,longitude pair.
+      Format: lat,long (no spaces).
+    examples:
+      nyc: "40.7128,-74.0060"
+      london: "51.5074,-0.1278"
+
+  PostalCodeUS:
+    type: string
+    pattern: "^\\d{5}(-\\d{4})?$"
+    description: |
+      United States ZIP code.
+      Five digits, with optional ZIP+4 extension.
+    examples:
+      five_digit: "10001"
+      zip_plus_4: "10001-1234"
+
+  PostalCodeUK:
+    type: string
+    pattern: "^[A-Z]{1,2}\\d[A-Z\\d]?\\s?\\d[A-Z]{2}$"
+    description: |
+      United Kingdom postcode.
+      Format varies: A9 9AA, A99 9AA, A9A 9AA, AA9 9AA, AA99 9AA, AA9A 9AA.
+      Space between outward and inward code is optional.
+    examples:
+      london: "SW1A 1AA"
+      manchester: "M1 1AE"
+      no_space: "EC1A1BB"
+
+  PostalCodeCA:
+    type: string
+    pattern: "^[A-Z]\\d[A-Z]\\s?\\d[A-Z]\\d$"
+    description: |
+      Canadian postal code.
+      Format: A9A 9A9 (letter-digit alternating). Space is optional.
+    examples:
+      with_space: "K1A 0B1"
+      without_space: "V6B3K9"
+
+  PostalCodeDE:
+    type: string
+    pattern: "^\\d{5}$"
+    description: |
+      German postal code (Postleitzahl). Exactly 5 digits.
+    examples:
+      berlin: "10115"
+      munich: "80331"
+
+  PostalCodeFR:
+    type: string
+    pattern: "^\\d{5}$"
+    description: |
+      French postal code (Code postal). Exactly 5 digits.
+    examples:
+      paris: "75001"
+      marseille: "13001"
+
+  PostalCodeIT:
+    type: string
+    pattern: "^\\d{5}$"
+    description: |
+      Italian postal code (CAP - Codice di Avviamento Postale). Exactly 5 digits.
+    examples:
+      rome: "00100"
+      milan: "20100"
+
+  PostalCodeES:
+    type: string
+    pattern: "^(0[1-9]|[1-4]\\d|5[0-2])\\d{3}$"
+    description: |
+      Spanish postal code (Codigo postal).
+      5 digits, first two represent the province (01-52).
+    examples:
+      madrid: "28001"
+      barcelona: "08001"
+
+  PostalCodeBR:
+    type: string
+    pattern: "^\\d{5}-?\\d{3}$"
+    description: |
+      Brazilian postal code (CEP). Format: 99999-999 (hyphen optional).
+    examples:
+      with_hyphen: "01001-000"
+      without_hyphen: "01001000"
+
+  PostalCodeAR:
+    type: string
+    pattern: "^[A-Z]\\d{4}[A-Z]{3}$"
+    description: |
+      Argentine CPA (Codigo Postal Argentino).
+      Format: A9999AAA (letter + 4 digits + 3 letters).
+    example: "C1420ABC"
+
+  PostalCodeJP:
+    type: string
+    pattern: "^\\d{3}-?\\d{4}$"
+    description: |
+      Japanese postal code. Format: 999-9999 (hyphen optional).
+    examples:
+      with_hyphen: "100-0001"
+      without_hyphen: "1000001"
+
+  PostalCodeAU:
+    type: string
+    pattern: "^\\d{4}$"
+    description: |
+      Australian postcode. Exactly 4 digits.
+    examples:
+      sydney: "2000"
+      melbourne: "3000"
+
+  PostalCodeIN:
+    type: string
+    pattern: "^[1-9]\\d{5}$"
+    description: |
+      Indian PIN code. 6 digits, first digit is 1-9 (zone).
+    examples:
+      delhi: "110001"
+      mumbai: "400001"

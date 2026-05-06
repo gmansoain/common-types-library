@@ -1,0 +1,9 @@
+{
+  "main": "common-types-library.raml",
+  "name": "Common Types Library",
+  "groupId": "YOUR_ORG_ID",
+  "assetId": "common-types-library",
+  "version": "1.0.0",
+  "classifier": "raml-fragment",
+  "tags": ["types", "validation", "regex", "patterns", "raml", "reusable"]
+}

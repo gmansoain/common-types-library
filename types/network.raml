@@ -1,0 +1,125 @@
+#%RAML 1.0 Library
+
+usage: Network, infrastructure, and connectivity types.
+
+types:
+  IPv4:
+    type: string
+    pattern: "^((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)$"
+    description: |
+      IPv4 address. Four octets (0-255) separated by dots.
+    examples:
+      private: "192.168.1.1"
+      public: "8.8.8.8"
+      localhost: "127.0.0.1"
+
+  IPv4CIDR:
+    type: string
+    pattern: "^((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)/(3[0-2]|[12]?\\d)$"
+    description: |
+      IPv4 address with CIDR notation (network range).
+      Suffix /0 to /32.
+    examples:
+      class_c: "192.168.1.0/24"
+      single_host: "10.0.0.5/32"
+      large_range: "10.0.0.0/8"
+
+  IPv6:
+    type: string
+    pattern: "^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"
+    description: |
+      Full IPv6 address (expanded form, 8 groups of 4 hex digits).
+      For abbreviated forms with ::, use IPv6Any.
+    example: "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+
+  IPv6Any:
+    type: string
+    pattern: "^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$"
+    description: |
+      IPv6 address allowing abbreviated notation (::).
+      Matches both full and shortened forms.
+    examples:
+      full: "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+      short: "2001:db8::1"
+      loopback: "::1"
+
+  IPv6CIDR:
+    type: string
+    pattern: "^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}/(12[0-8]|1[01]\\d|\\d{1,2})$"
+    description: |
+      IPv6 address with CIDR notation.
+      Suffix /0 to /128.
+    examples:
+      subnet: "2001:db8::/32"
+      single: "::1/128"
+
+  Hostname:
+    type: string
+    pattern: "^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$"
+    maxLength: 253
+    description: |
+      Fully qualified domain name (FQDN).
+      Each label: 1-63 chars, starts/ends with alphanumeric.
+      Total max 253 characters.
+    examples:
+      simple: "api.example.com"
+      subdomain: "us-east-1.api.example.com"
+      short: "localhost.localdomain"
+
+  HostnameOrIP:
+    type: string
+    pattern: "^(([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?))$"
+    description: |
+      Either a valid hostname (FQDN) or an IPv4 address.
+      Useful for configuration fields that accept both.
+    examples:
+      hostname: "api.example.com"
+      ip: "192.168.1.100"
+
+  PortNumber:
+    type: string
+    pattern: "^([1-9]\\d{0,3}|[1-5]\\d{4}|6[0-4]\\d{3}|65[0-4]\\d{2}|655[0-2]\\d|6553[0-5])$"
+    description: |
+      Valid TCP/UDP port number (1-65535).
+      Does not allow 0 (reserved) or leading zeros.
+    examples:
+      http: "80"
+      https: "443"
+      custom: "8443"
+      max: "65535"
+
+  HostPort:
+    type: string
+    pattern: "^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}:\\d{1,5}$"
+    description: |
+      Hostname:port combination.
+    examples:
+      standard: "api.example.com:443"
+      custom: "mule-worker.internal:8081"
+
+  MacAddress:
+    type: string
+    pattern: "^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+    description: |
+      MAC address in colon or hyphen-separated format.
+      Six groups of two hex digits.
+    examples:
+      colon: "00:1A:2B:3C:4D:5E"
+      hyphen: "00-1A-2B-3C-4D-5E"
+
+  HttpUrl:
+    type: string
+    pattern: "^https?://[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*(:\\d{1,5})?(/[a-zA-Z0-9._~:/?#\\[\\]@!$&'()*+,;=%-]*)?$"
+    description: |
+      HTTP or HTTPS URL. Validates scheme, host, optional port, and path.
+    examples:
+      simple: "https://api.example.com"
+      with_path: "https://api.example.com/v1/orders"
+      with_port: "http://localhost:8081/health"
+
+  HttpsUrl:
+    type: string
+    pattern: "^https://[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*(:\\d{1,5})?(/[a-zA-Z0-9._~:/?#\\[\\]@!$&'()*+,;=%-]*)?$"
+    description: |
+      HTTPS-only URL (secure connections required).
+    example: "https://api.example.com/v1/orders"

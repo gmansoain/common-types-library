@@ -1,0 +1,167 @@
+#%RAML 1.0 Library
+
+usage: |
+  MuleSoft and Anypoint Platform-specific identifier types.
+  Use these for internal platform integrations, automation scripts,
+  and admin APIs.
+
+types:
+  AnypointOrgId:
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    description: |
+      Anypoint Platform Organization ID.
+      UUID format (lowercase, hyphenated). Found in Access Management - Organization.
+    example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+
+  AnypointEnvironmentId:
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    description: |
+      Anypoint Platform Environment ID.
+      UUID format. Found in Access Management - Environments.
+    example: "f1e2d3c4-b5a6-7890-fedc-ba0987654321"
+
+  AnypointClientId:
+    type: string
+    pattern: "^[0-9a-f]{32}$"
+    description: |
+      Anypoint Platform client application ID.
+      32 lowercase hexadecimal characters (no hyphens).
+      Used for client_id in OAuth2 client credentials and API autodiscovery.
+    example: "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+
+  AnypointClientSecret:
+    type: string
+    pattern: "^[A-Za-z0-9]{32,64}$"
+    description: |
+      Anypoint Platform client application secret.
+      Alphanumeric, typically 32 or 64 characters.
+      WARNING: Treat as sensitive - never log or return in responses.
+    example: "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6"
+
+  ExchangeAssetId:
+    type: string
+    pattern: "^[a-z][a-z0-9-]*[a-z0-9]$"
+    minLength: 2
+    maxLength: 64
+    description: |
+      Anypoint Exchange asset identifier (artifact ID).
+      Lowercase alphanumeric and hyphens, starts with letter, ends with alphanumeric.
+    examples:
+      api: "order-management-api"
+      connector: "salesforce-connector"
+      fragment: "common-types-library"
+
+  ExchangeGroupId:
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    description: |
+      Exchange group ID (matches the Organization ID).
+    example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+
+  ExchangeVersion:
+    type: string
+    pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-SNAPSHOT)?$"
+    description: |
+      Anypoint Exchange asset version.
+      Semantic versioning with optional -SNAPSHOT suffix for development.
+    examples:
+      release: "1.2.3"
+      snapshot: "2.0.0-SNAPSHOT"
+
+  ApiInstanceId:
+    type: string
+    pattern: "^\\d{5,10}$"
+    description: |
+      API Manager instance ID (numeric).
+      Found in API Manager - API instance details.
+    example: "18436572"
+
+  ApiAutoDiscoveryId:
+    type: string
+    pattern: "^\\d{5,10}$"
+    description: |
+      API autodiscovery ID used in Mule application properties.
+      Same format as API instance ID.
+    example: "18436572"
+
+  MuleAppName:
+    type: string
+    pattern: "^[a-z][a-z0-9-]{1,40}[a-z0-9]$"
+    description: |
+      CloudHub 2.0 / Runtime Fabric application name.
+      Lowercase, starts with letter, ends with alphanumeric, hyphens allowed.
+      3-42 characters total.
+    examples:
+      simple: "order-api"
+      env_prefix: "dev-order-management-sapi"
+
+  CloudHubDomain:
+    type: string
+    pattern: "^[a-z][a-z0-9-]{1,61}[a-z0-9]\\.([a-z0-9-]+\\.)?cloudhub\\.io$"
+    description: |
+      CloudHub 1.0 application domain (FQDN).
+      Format: appname[.region].cloudhub.io.
+    examples:
+      default: "my-order-api.cloudhub.io"
+      regional: "my-order-api.us-e1.cloudhub.io"
+
+  RuntimeFabricTarget:
+    type: string
+    pattern: "^[a-z][a-z0-9-]{1,62}[a-z0-9]$"
+    description: |
+      Runtime Fabric target/cluster name.
+    example: "prod-rtf-cluster-east"
+
+  DataWeaveVersion:
+    type: string
+    pattern: "^\\d+\\.\\d+$"
+    description: |
+      DataWeave language version.
+    examples:
+      current: "2.0"
+      legacy: "1.0"
+
+  MuleRuntimeVersion:
+    type: string
+    pattern: "^4\\.(\\d+)\\.(\\d+)(-hf(\\d+))?$"
+    description: |
+      Mule Runtime 4.x version with optional hotfix.
+      Format: 4.MINOR.PATCH[-hfN].
+    examples:
+      standard: "4.6.0"
+      with_hotfix: "4.4.0-hf2"
+      latest: "4.9.0"
+
+  MavenCoordinates:
+    type: string
+    pattern: "^[a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+:(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-SNAPSHOT)?$"
+    description: |
+      Maven GAV coordinates (groupId:artifactId:version).
+    examples:
+      mule_connector: "com.mulesoft.connectors:mule-salesforce-connector:10.18.0"
+      custom: "com.example:order-api:1.0.0-SNAPSHOT"
+
+  AnypointTraceId:
+    type: string
+    pattern: "^[0-9a-f]{32}$"
+    description: |
+      Anypoint Monitoring / Titanium trace ID (32 hex chars, W3C format).
+    example: "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+
+  AnypointSpanId:
+    type: string
+    pattern: "^[0-9a-f]{16}$"
+    description: |
+      Anypoint Monitoring span ID (16 hex chars, W3C format).
+    example: "a1b2c3d4e5f6a7b8"
+
+  WorkerLogLevel:
+    type: string
+    pattern: "^(TRACE|DEBUG|INFO|WARN|ERROR|FATAL|OFF)$"
+    description: |
+      Log4j2 log level for Mule worker configuration.
+    examples:
+      production: "WARN"
+      debug: "DEBUG"

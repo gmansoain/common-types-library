@@ -1,0 +1,74 @@
+#%RAML 1.0 Library
+
+usage: Universal identifier types with regex validation.
+
+types:
+  UUID:
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    description: |
+      RFC 4122 UUID (lowercase, hyphenated).
+      Validates version (1-5) and variant (8, 9, a, b) bits.
+    examples:
+      v4: "550e8400-e29b-41d4-a716-446655440000"
+      v1: "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+
+  UUIDUppercase:
+    type: string
+    pattern: "^[0-9A-F]{8}-[0-9A-F]{4}-[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$"
+    description: |
+      RFC 4122 UUID in uppercase (some legacy systems output uppercase).
+    example: "550E8400-E29B-41D4-A716-446655440000"
+
+  UUIDAnyCase:
+    type: string
+    pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+    description: |
+      RFC 4122 UUID accepting both upper and lowercase.
+      Use when you cannot control the casing of upstream systems.
+    example: "550e8400-E29B-41d4-A716-446655440000"
+
+  ULID:
+    type: string
+    pattern: "^[0-7][0-9A-HJKMNP-TV-Z]{25}$"
+    description: |
+      Universally Unique Lexicographically Sortable Identifier.
+      26 characters, Crockford Base32 encoded. Time-sortable.
+      First character is limited to 0-7 to prevent overflow.
+    example: "01ARZ3NDEKTSV4RRFFQ69G5FAV"
+
+  Slug:
+    type: string
+    pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+    minLength: 1
+    maxLength: 128
+    description: |
+      URL-safe slug. Lowercase alphanumeric segments separated by single hyphens.
+      Cannot start or end with a hyphen, no consecutive hyphens.
+    examples:
+      simple: "hello"
+      multi_word: "my-resource-name"
+      with_numbers: "order-123-details"
+
+  PrefixedId:
+    type: string
+    pattern: "^[a-z]{2,10}_[a-zA-Z0-9]{8,32}$"
+    description: |
+      Stripe-style prefixed identifier.
+      A lowercase prefix (2-10 chars) followed by underscore and an alphanumeric value (8-32 chars).
+    examples:
+      user: "usr_A1b2C3d4E5f6G7h8"
+      customer: "cus_9a8B7c6D5e4F3g2H"
+      payment: "pay_Xk9mN2pQ4rS6tU8w"
+
+  CorrelationId:
+    type: string
+    pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+    description: |
+      Distributed tracing correlation identifier.
+      Starts with alphanumeric, allows dots, underscores, hyphens. Max 128 chars.
+      Flexible enough for UUID-based, timestamp-based, or custom formats.
+    examples:
+      uuid_style: "550e8400-e29b-41d4-a716-446655440000"
+      custom: "corr.20260505.order-svc.a1b2c3d4"
+      simple: "req-001-abc"

@@ -1,0 +1,145 @@
+#%RAML 1.0 Library
+
+usage: |
+  Salesforce ID types with object-specific key prefix validation.
+  Salesforce IDs are 15 (case-sensitive) or 18 (case-insensitive) characters.
+  The first 3 characters identify the object type (Key Prefix).
+
+types:
+  SalesforceId:
+    type: string
+    pattern: "^[a-zA-Z0-9]{15}([a-zA-Z0-9]{3})?$"
+    description: |
+      Generic Salesforce record ID (any object).
+      Accepts both 15-character (case-sensitive) and 18-character (case-insensitive) formats.
+      Use object-specific types below when the expected object type is known.
+    examples:
+      fifteen_char: "001000000000001"
+      eighteen_char: "001000000000001AAA"
+
+  SalesforceId18:
+    type: string
+    pattern: "^[a-zA-Z0-9]{18}$"
+    description: |
+      Salesforce 18-character ID only (case-insensitive).
+      Recommended for API integrations to avoid case-sensitivity issues.
+    example: "001000000000001AAA"
+
+  SalesforceAccountId:
+    type: string
+    pattern: "^001[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Account record ID.
+      Key Prefix: 001. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "001xx000003DGb2"
+      eighteen: "001xx000003DGb2AAG"
+
+  SalesforceContactId:
+    type: string
+    pattern: "^003[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Contact record ID.
+      Key Prefix: 003. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "003xx000004TmiQ"
+      eighteen: "003xx000004TmiQAAS"
+
+  SalesforceCaseId:
+    type: string
+    pattern: "^500[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Case record ID.
+      Key Prefix: 500. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "500xx000001Svf0"
+      eighteen: "500xx000001Svf0AAC"
+
+  SalesforceOpportunityId:
+    type: string
+    pattern: "^006[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Opportunity record ID.
+      Key Prefix: 006. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "006xx000001Svf0"
+      eighteen: "006xx000001Svf0AAC"
+
+  SalesforceLeadId:
+    type: string
+    pattern: "^00Q[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Lead record ID.
+      Key Prefix: 00Q. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "00Qxx000001Svf0"
+      eighteen: "00Qxx000001Svf0AAC"
+
+  SalesforceUserId:
+    type: string
+    pattern: "^005[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce User record ID.
+      Key Prefix: 005. Accepts 15 or 18 characters.
+    examples:
+      fifteen: "005xx000001Svf0"
+      eighteen: "005xx000001Svf0AAC"
+
+  SalesforceTaskId:
+    type: string
+    pattern: "^00T[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Task record ID.
+      Key Prefix: 00T. Accepts 15 or 18 characters.
+    example: "00Txx000003gHw0AAE"
+
+  SalesforceEventId:
+    type: string
+    pattern: "^00U[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Event record ID.
+      Key Prefix: 00U. Accepts 15 or 18 characters.
+    example: "00Uxx000002HJKaAAE"
+
+  SalesforceProductId:
+    type: string
+    pattern: "^01t[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Product2 record ID.
+      Key Prefix: 01t. Accepts 15 or 18 characters.
+    example: "01txx0000006iIk"
+
+  SalesforcePriceBookId:
+    type: string
+    pattern: "^01s[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Pricebook2 record ID.
+      Key Prefix: 01s. Accepts 15 or 18 characters.
+    example: "01sxx0000002LKT"
+
+  SalesforceOrderId:
+    type: string
+    pattern: "^801[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Order record ID.
+      Key Prefix: 801. Accepts 15 or 18 characters.
+    example: "801xx000000001a"
+
+  SalesforceCampaignId:
+    type: string
+    pattern: "^701[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Campaign record ID.
+      Key Prefix: 701. Accepts 15 or 18 characters.
+    example: "701xx000000001a"
+
+  SalesforceCustomObjectId:
+    type: string
+    pattern: "^a[0-9][0-9A-Za-z][a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$"
+    description: |
+      Salesforce Custom Object record ID.
+      Custom object key prefixes start with 'a' followed by two alphanumeric characters.
+      The exact prefix depends on the org and object definition order.
+    examples:
+      custom1: "a00xx000001Svf0"
+      custom2: "a0Bxx000002ABCD"

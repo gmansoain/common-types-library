@@ -1,0 +1,99 @@
+#%RAML 1.0 Library
+
+usage: Versioning, content type, and metadata types.
+
+types:
+  SemanticVersion:
+    type: string
+    pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*)?(\\+[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*)?$"
+    description: |
+      Full Semantic Versioning 2.0.0.
+      Format: MAJOR.MINOR.PATCH[-prerelease][+build].
+      No leading zeros in numeric segments.
+    examples:
+      stable: "1.0.0"
+      prerelease: "2.1.0-beta.1"
+      with_build: "1.0.0+20260505"
+      complex: "3.2.1-rc.1+build.123"
+
+  SemanticVersionStrict:
+    type: string
+    pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    description: |
+      Strict Semantic Version without pre-release or build metadata.
+      Use when you only accept released versions.
+    examples:
+      initial: "1.0.0"
+      mature: "12.3.45"
+
+  ApiVersionPrefix:
+    type: string
+    pattern: "^v[1-9]\\d*$"
+    description: |
+      API major version prefix (e.g., v1, v2, v10).
+      No minor/patch - API versions use major-only.
+    examples:
+      v1: "v1"
+      v2: "v2"
+      v12: "v12"
+
+  ApiVersionFull:
+    type: string
+    pattern: "^v[1-9]\\d*(\\.\\d+){0,2}$"
+    description: |
+      API version with optional minor and patch.
+      Format: vMAJOR[.MINOR[.PATCH]].
+    examples:
+      major_only: "v1"
+      major_minor: "v2.1"
+      full: "v3.0.1"
+
+  MimeType:
+    type: string
+    pattern: "^(application|audio|font|image|message|model|multipart|text|video)/[a-zA-Z0-9][a-zA-Z0-9!#$&\\-^_.+]*$"
+    description: |
+      IANA media type (Content-Type without parameters).
+      Format: type/subtype.
+    examples:
+      json: "application/json"
+      xml: "application/xml"
+      html: "text/html"
+      custom: "application/vnd.api+json"
+
+  MimeTypeWithParams:
+    type: string
+    pattern: "^(application|audio|font|image|message|model|multipart|text|video)/[a-zA-Z0-9][a-zA-Z0-9!#$&\\-^_.+]*(;\\s?[a-zA-Z0-9-]+=[a-zA-Z0-9-]+)*$"
+    description: |
+      Media type with optional parameters (e.g., charset).
+    examples:
+      with_charset: "application/json; charset=utf-8"
+      plain: "text/plain"
+
+  HttpMethod:
+    type: string
+    pattern: "^(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|TRACE)$"
+    description: |
+      Standard HTTP method (uppercase).
+    examples:
+      get: "GET"
+      post: "POST"
+      delete: "DELETE"
+
+  HttpStatusCode:
+    type: string
+    pattern: "^[1-5]\\d{2}$"
+    description: |
+      HTTP status code (100-599).
+    examples:
+      ok: "200"
+      not_found: "404"
+      server_error: "500"
+
+  ETag:
+    type: string
+    pattern: "^(W/)?\"[^\"]*\"$"
+    description: |
+      HTTP ETag header value. Optionally weak (W/ prefix), quoted string.
+    examples:
+      strong: "\"33a64df551425fcc55e4d42a148795d9f25f89d4\""
+      weak: "W/\"0815\""

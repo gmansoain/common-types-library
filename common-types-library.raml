@@ -1,0 +1,304 @@
+#%RAML 1.0 Library
+
+usage: |
+  Common regex-validated types for reuse across all API specifications.
+  Import this library to get consistent validation for identifiers, dates,
+  contact info, financial data, networking, security, and more.
+
+  Usage:
+    uses:
+      Common: exchange_modules/{orgId}/common-types-library/1.0.0/common-types-library.raml
+
+    Then reference types as: Common.UUID, Common.ISODate, Common.Email, etc.
+
+uses:
+  _Identifiers: types/identifiers.raml
+  _Dates: types/dates.raml
+  _Contact: types/contact.raml
+  _Geography: types/geography.raml
+  _Financial: types/financial.raml
+  _Network: types/network.raml
+  _Security: types/security.raml
+  _Versioning: types/versioning.raml
+  _Business: types/business.raml
+  _Salesforce: types/salesforce.raml
+  _MuleSoft: types/mulesoft.raml
+
+types:
+  # --- Identifiers ---
+  UUID:
+    type: _Identifiers.UUID
+  UUIDUppercase:
+    type: _Identifiers.UUIDUppercase
+  UUIDAnyCase:
+    type: _Identifiers.UUIDAnyCase
+  ULID:
+    type: _Identifiers.ULID
+  Slug:
+    type: _Identifiers.Slug
+  PrefixedId:
+    type: _Identifiers.PrefixedId
+  CorrelationId:
+    type: _Identifiers.CorrelationId
+
+  # --- Dates & Times ---
+  ISODate:
+    type: _Dates.ISODate
+  ISODateTime:
+    type: _Dates.ISODateTime
+  ISODateTimeOffset:
+    type: _Dates.ISODateTimeOffset
+  ISODateTimeMillis:
+    type: _Dates.ISODateTimeMillis
+  TimeOnly:
+    type: _Dates.TimeOnly
+  ISODuration:
+    type: _Dates.ISODuration
+  YearMonth:
+    type: _Dates.YearMonth
+  Year:
+    type: _Dates.Year
+  UnixTimestamp:
+    type: _Dates.UnixTimestamp
+
+  # --- Contact ---
+  Email:
+    type: _Contact.Email
+  PhoneE164:
+    type: _Contact.PhoneE164
+  PhoneNANP:
+    type: _Contact.PhoneNANP
+  Username:
+    type: _Contact.Username
+  PersonNameASCII:
+    type: _Contact.PersonNameASCII
+
+  # --- Geography ---
+  CountryCodeAlpha2:
+    type: _Geography.CountryCodeAlpha2
+  CountryCodeAlpha3:
+    type: _Geography.CountryCodeAlpha3
+  CountryCodeNumeric:
+    type: _Geography.CountryCodeNumeric
+  LanguageCode:
+    type: _Geography.LanguageCode
+  LanguageCode3:
+    type: _Geography.LanguageCode3
+  Locale:
+    type: _Geography.Locale
+  LocaleExtended:
+    type: _Geography.LocaleExtended
+  Latitude:
+    type: _Geography.Latitude
+  Longitude:
+    type: _Geography.Longitude
+  LatLong:
+    type: _Geography.LatLong
+  PostalCodeUS:
+    type: _Geography.PostalCodeUS
+  PostalCodeUK:
+    type: _Geography.PostalCodeUK
+  PostalCodeCA:
+    type: _Geography.PostalCodeCA
+  PostalCodeDE:
+    type: _Geography.PostalCodeDE
+  PostalCodeFR:
+    type: _Geography.PostalCodeFR
+  PostalCodeIT:
+    type: _Geography.PostalCodeIT
+  PostalCodeES:
+    type: _Geography.PostalCodeES
+  PostalCodeBR:
+    type: _Geography.PostalCodeBR
+  PostalCodeAR:
+    type: _Geography.PostalCodeAR
+  PostalCodeJP:
+    type: _Geography.PostalCodeJP
+  PostalCodeAU:
+    type: _Geography.PostalCodeAU
+  PostalCodeIN:
+    type: _Geography.PostalCodeIN
+
+  # --- Financial ---
+  CurrencyCode:
+    type: _Financial.CurrencyCode
+  MonetaryAmount:
+    type: _Financial.MonetaryAmount
+  MonetaryAmountStrict:
+    type: _Financial.MonetaryAmountStrict
+  MonetaryAmountCrypto:
+    type: _Financial.MonetaryAmountCrypto
+  CreditCardMasked:
+    type: _Financial.CreditCardMasked
+  CreditCardBIN:
+    type: _Financial.CreditCardBIN
+  IBAN:
+    type: _Financial.IBAN
+  BIC:
+    type: _Financial.BIC
+  TaxId:
+    type: _Financial.TaxId
+
+  # --- Network ---
+  IPv4:
+    type: _Network.IPv4
+  IPv4CIDR:
+    type: _Network.IPv4CIDR
+  IPv6:
+    type: _Network.IPv6
+  IPv6Any:
+    type: _Network.IPv6Any
+  IPv6CIDR:
+    type: _Network.IPv6CIDR
+  Hostname:
+    type: _Network.Hostname
+  HostnameOrIP:
+    type: _Network.HostnameOrIP
+  PortNumber:
+    type: _Network.PortNumber
+  HostPort:
+    type: _Network.HostPort
+  MacAddress:
+    type: _Network.MacAddress
+  HttpUrl:
+    type: _Network.HttpUrl
+  HttpsUrl:
+    type: _Network.HttpsUrl
+
+  # --- Security ---
+  BearerToken:
+    type: _Security.BearerToken
+  JWTStructure:
+    type: _Security.JWTStructure
+  ApiKey:
+    type: _Security.ApiKey
+  ApiKeySimple:
+    type: _Security.ApiKeySimple
+  ClientId:
+    type: _Security.ClientId
+  ClientSecret:
+    type: _Security.ClientSecret
+  Base64:
+    type: _Security.Base64
+  Base64URL:
+    type: _Security.Base64URL
+  SHA256Hash:
+    type: _Security.SHA256Hash
+  MD5Hash:
+    type: _Security.MD5Hash
+  BasicAuthHeader:
+    type: _Security.BasicAuthHeader
+
+  # --- Versioning ---
+  SemanticVersion:
+    type: _Versioning.SemanticVersion
+  SemanticVersionStrict:
+    type: _Versioning.SemanticVersionStrict
+  ApiVersionPrefix:
+    type: _Versioning.ApiVersionPrefix
+  ApiVersionFull:
+    type: _Versioning.ApiVersionFull
+  MimeType:
+    type: _Versioning.MimeType
+  MimeTypeWithParams:
+    type: _Versioning.MimeTypeWithParams
+  HttpMethod:
+    type: _Versioning.HttpMethod
+  HttpStatusCode:
+    type: _Versioning.HttpStatusCode
+  ETag:
+    type: _Versioning.ETag
+
+  # --- Business ---
+  OrderId:
+    type: _Business.OrderId
+  InvoiceNumber:
+    type: _Business.InvoiceNumber
+  TrackingNumberUPS:
+    type: _Business.TrackingNumberUPS
+  TrackingNumberFedEx:
+    type: _Business.TrackingNumberFedEx
+  TrackingNumberUSPS:
+    type: _Business.TrackingNumberUSPS
+  SKU:
+    type: _Business.SKU
+  CronExpression:
+    type: _Business.CronExpression
+  HexColor:
+    type: _Business.HexColor
+  TagList:
+    type: _Business.TagList
+  Percentage:
+    type: _Business.Percentage
+  TimeZoneIANA:
+    type: _Business.TimeZoneIANA
+
+  # --- Salesforce ---
+  SalesforceId:
+    type: _Salesforce.SalesforceId
+  SalesforceId18:
+    type: _Salesforce.SalesforceId18
+  SalesforceAccountId:
+    type: _Salesforce.SalesforceAccountId
+  SalesforceContactId:
+    type: _Salesforce.SalesforceContactId
+  SalesforceCaseId:
+    type: _Salesforce.SalesforceCaseId
+  SalesforceOpportunityId:
+    type: _Salesforce.SalesforceOpportunityId
+  SalesforceLeadId:
+    type: _Salesforce.SalesforceLeadId
+  SalesforceUserId:
+    type: _Salesforce.SalesforceUserId
+  SalesforceTaskId:
+    type: _Salesforce.SalesforceTaskId
+  SalesforceEventId:
+    type: _Salesforce.SalesforceEventId
+  SalesforceProductId:
+    type: _Salesforce.SalesforceProductId
+  SalesforcePriceBookId:
+    type: _Salesforce.SalesforcePriceBookId
+  SalesforceOrderId:
+    type: _Salesforce.SalesforceOrderId
+  SalesforceCampaignId:
+    type: _Salesforce.SalesforceCampaignId
+  SalesforceCustomObjectId:
+    type: _Salesforce.SalesforceCustomObjectId
+
+  # --- MuleSoft ---
+  AnypointOrgId:
+    type: _MuleSoft.AnypointOrgId
+  AnypointEnvironmentId:
+    type: _MuleSoft.AnypointEnvironmentId
+  AnypointClientId:
+    type: _MuleSoft.AnypointClientId
+  AnypointClientSecret:
+    type: _MuleSoft.AnypointClientSecret
+  ExchangeAssetId:
+    type: _MuleSoft.ExchangeAssetId
+  ExchangeGroupId:
+    type: _MuleSoft.ExchangeGroupId
+  ExchangeVersion:
+    type: _MuleSoft.ExchangeVersion
+  ApiInstanceId:
+    type: _MuleSoft.ApiInstanceId
+  ApiAutoDiscoveryId:
+    type: _MuleSoft.ApiAutoDiscoveryId
+  MuleAppName:
+    type: _MuleSoft.MuleAppName
+  CloudHubDomain:
+    type: _MuleSoft.CloudHubDomain
+  RuntimeFabricTarget:
+    type: _MuleSoft.RuntimeFabricTarget
+  DataWeaveVersion:
+    type: _MuleSoft.DataWeaveVersion
+  MuleRuntimeVersion:
+    type: _MuleSoft.MuleRuntimeVersion
+  MavenCoordinates:
+    type: _MuleSoft.MavenCoordinates
+  AnypointTraceId:
+    type: _MuleSoft.AnypointTraceId
+  AnypointSpanId:
+    type: _MuleSoft.AnypointSpanId
+  WorkerLogLevel:
+    type: _MuleSoft.WorkerLogLevel
