@@ -1,7 +1,7 @@
 {
   "main": "common-types-library.raml",
   "name": "Common Types Library",
-  "groupId": "YOUR_ORG_ID",
+  "groupId": "f695bf5f-edb7-41d0-9e37-d22cc85e18dd",
   "assetId": "common-types-library",
   "version": "1.0.0",
   "classifier": "raml-fragment",
